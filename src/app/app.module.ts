@@ -12,6 +12,8 @@ import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+
 import {UserService} from "./shared/services/user.service";
 
 @NgModule({
