@@ -12,6 +12,7 @@ import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
 
 import 'rxjs/add/operator/map';
+import {UserService} from "./shared/services/user.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import 'rxjs/add/operator/map';
     HttpModule,
     FormsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
