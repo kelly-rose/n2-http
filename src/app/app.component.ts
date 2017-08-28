@@ -9,17 +9,15 @@ import {User} from "./shared/models/user";
 })
 export class AppComponent implements OnInit {
   users: User[];
-
   constructor(private http: Http) {
   }
 
   ngOnInit() {
     //grab users
-    this.http.get('https://reqres.in/api/users')
+   this.http.get('https://reqres.in/api/users')
+     .map(res=>res.json().data)
       .subscribe(data => {
-        console.log(data);
-        console.log(data.json());
-        this.users = data.json().data;
+        this.users =data;
       });
   }
 }

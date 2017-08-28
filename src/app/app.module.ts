@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { UserCreateComponent } from './users/user-create/user-create.component';
@@ -11,6 +10,8 @@ import { UserListComponent } from './users/user-list/user-list.component';
 import { UserSingleComponent } from './users/user-single/user-single.component';
 import {HttpModule} from "@angular/http";
 import {FormsModule} from "@angular/forms";
+
+import 'rxjs/add/operator/map';
 
 @NgModule({
   declarations: [
