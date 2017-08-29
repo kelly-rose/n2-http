@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from "@angular/router";
+import {UserService} from "../../shared/services/user.service";
+import {User} from "../../shared/models/user";
 
 @Component({
   selector: 'app-user-single',
@@ -6,10 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-single.component.css']
 })
 export class UserSingleComponent implements OnInit {
+  user: User;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private service: UserService) {
+  }
 
   ngOnInit() {
+    //grab the id from the url
+    let id = this.route.snapshot.params['id'];
+
+    //use the userservice to getUser()
+    this.service.getUser(id).subscribe(user => this.user = user);
+
   }
 
 }

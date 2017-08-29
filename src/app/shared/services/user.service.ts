@@ -23,8 +23,8 @@ export class UserService {
   /**
    * Get a single user
    */
-  getUser(): Observable<User[]> {
-    return this.http.get('http://example.com')
+  getUser(id:number): Observable<User> {
+    return this.http.get(`${this.usersUrl}/${id}`)
       .map(res => res.json().data)
       .catch(this.handleError);
 
