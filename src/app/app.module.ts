@@ -15,6 +15,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 import {UserService} from "./shared/services/user.service";
+import {routing} from "./app.routing";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {UserService} from "./shared/services/user.service";
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    routing
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
