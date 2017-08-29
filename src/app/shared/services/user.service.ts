@@ -2,11 +2,22 @@ import {Injectable} from '@angular/core';
 import {Http} from "@angular/http";
 import {Observable} from "rxjs/Observable";
 import {User} from "../models/user";
-import {toUnicode} from "punycode";
+import {Subject} from "rxjs/Subject";
 
 @Injectable()
 export class UserService {
   private usersUrl: string = 'https://reqres.in/api/users';
+
+  /**
+   * 16 - component communication with service
+   */
+  //observable source
+  private userCreatedSource = new Subject<User>();
+  private userDeletedSource = new Subject();
+
+  //observable stream
+  userCreated$ = this.userCreatedSource.asObservable();
+  userDeleted$ = this.userDeletedSource.asObservable();
 
   constructor(private http: Http) {
   }
@@ -34,15 +45,6 @@ export class UserService {
   }
 
   /**
-   * Create the user
-   */
-  createUser(user: User): Observable<User> {
-    return this.http.post(this.usersUrl, user)
-      .map(res => res.json())
-      .catch(this.handleError);
-  }
-
-  /**
    * Update the user
    */
   updateUser(user: User): Observable<User> {
@@ -51,13 +53,40 @@ export class UserService {
       .catch(this.handleError);
   }
 
+  /**
+   * Create the user
+   */
+  createUser(user: User): Observable<User> {
+    return this.http.post(this.usersUrl, user)
+      .map(res => res.json())
+      .do(user => this.userCreated(user))
+      .catch(this.handleError);
+  }
 
   /**
-   * Update the user
+   * Delete the user
    */
   deleteUser(id: number): Observable<any> {
     return this.http.delete(`${this.usersUrl}/${id}`)
+      .do(res=>this.userDeleted())
       .catch(this.handleError);
+  }
+
+  /**
+   * The user was created. Add this info to our stream
+   */
+  userCreated(user:User){
+    console.log('user has been created.');
+    this.userCreatedSource.next(user);
+  }
+
+  /**
+   * The user was deleted. Add this info to our stream
+   */
+  userDeleted(){
+    console.log('user has been deleted.');
+
+    this.userDeletedSource.next();
   }
 
 
