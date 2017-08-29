@@ -68,10 +68,14 @@ export class UserService {
 
     if (err instanceof Response) {
       let body:any   = err.json() || '';
+      console.log(body);
       let error  = body.error || JSON.stringify(body);
-      errMessage = `${err.status} - ${err.statusText} || ''} ${error}`;
+      errMessage = `${err.status} - ${err.statusText || ''} ${error}`;
     } else {
+
       errMessage = err.message ? err.message : err.toString();
+      console.log(errMessage);
+
     }
 
     return Observable.throw(errMessage);

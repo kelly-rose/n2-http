@@ -9,7 +9,9 @@ import {User} from "../../shared/models/user";
   styleUrls: ['./user-edit.component.css']
 })
 export class UserEditComponent implements OnInit {
-  user:User;
+  user: User;
+  successMessage: string = '';
+  errorMessage: string = '';
 
   constructor(private service: UserService, private route: ActivatedRoute) {
   }
@@ -21,8 +23,17 @@ export class UserEditComponent implements OnInit {
 
   }
 
-  updateUser(){
-    this.service.updateUser(this.user).subscribe(user=>console.log('user was updated'));
+  updateUser() {
+    this.service.updateUser(this.user).subscribe(
+      user => {
+      this.successMessage='user was updated';
+
+      console.log('user was updated');
+    },
+      err=>{
+        this.errorMessage=err;
+        console.log(err);
+      });
 
   }
 

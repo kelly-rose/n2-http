@@ -13,6 +13,7 @@ import {FormsModule} from "@angular/forms";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 
 import {UserService} from "./shared/services/user.service";
 import {routing} from "./app.routing";
