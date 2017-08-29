@@ -52,7 +52,13 @@ export class UserService {
   }
 
 
-  //delete a user
+  /**
+   * Update the user
+   */
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.usersUrl}/${id}`)
+      .catch(this.handleError);
+  }
 
 
   /**

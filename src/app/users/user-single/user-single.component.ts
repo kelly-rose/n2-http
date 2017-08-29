@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../../shared/services/user.service";
 import {User} from "../../shared/models/user";
 
@@ -11,7 +11,7 @@ import {User} from "../../shared/models/user";
 export class UserSingleComponent implements OnInit {
   user: User;
 
-  constructor(private route: ActivatedRoute, private service: UserService) {
+  constructor(private route: ActivatedRoute,private router:Router, private service: UserService) {
   }
 
   ngOnInit() {
@@ -21,6 +21,13 @@ export class UserSingleComponent implements OnInit {
     //use the userservice to getUser()
     this.service.getUser(id).subscribe(user => this.user = user);
 
+  }
+
+  deleteUser(){
+    this.service.deleteUser(this.user.id).subscribe(data=>{
+      //route back to the users page
+      this.router.navigate(['/users']);
+    });
   }
 
 }
